@@ -19,9 +19,11 @@ def extract_animal_information(animals_data):
         animal_type = animal["characteristics"].get("type", None)
         animal_selected_info = {"Name": animal_name, "Diet": animal_diet, "Location": animal_location, "Type": animal_type}
 
+        output += '<li class="card__item">'
         for information_type, information_value in animal_selected_info.items():
             if information_value is not None:
-                output += f"{information_type}: {information_value}\n"
+                output += f"{information_type}: {information_value}<br/>\n"
+        output += '</li>'
     return output
 
 
