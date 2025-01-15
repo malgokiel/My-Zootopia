@@ -6,11 +6,12 @@ def load_data(file_path):
         return json.load(handle)
 
 
-def print_animal_information(animals_data):
+def extract_animal_information(animals_data):
     """
-    The Function prints out information about each animal:
+    The Function extracts information about each animal into a string:
     - name - diet - top location - type
     """
+    output = ""
     for animal in animals_data:
         animal_name = animal.get("name", None)
         animal_diet = animal["characteristics"].get("diet", None)
@@ -20,14 +21,26 @@ def print_animal_information(animals_data):
 
         for information_type, information_value in animal_selected_info.items():
             if information_value is not None:
-                print(f"{information_type}: {information_value}")
-        print()
+                output += f"{information_type}: {information_value}\n"
+    return output
+
+
+def add_animal_data_to_html(animals_data):
+    """
+    Opens html file and passes animal information as age content
+    """
+    with open("animals_template.html", "r") as fileobj:
+        template = fileobj.read()
+
+    new_phrase = template.replace("__REPLACE_ANIMALS_INFO__", extract_animal_information(animals_data))
+
+    with open("animals_template.html", "w") as fileobject:
+        fileobject.write(new_phrase)
 
 
 def main():
-    animals_data = load_data('animals_data.json')
-    print_animal_information(animals_data)
-
+    all_animals_data = load_data('animals_data.json')
+    add_animal_data_to_html(all_animals_data)
 
 if __name__ == "__main__":
     main()
