@@ -17,12 +17,15 @@ def extract_animal_information(animals_data):
         animal_diet = animal["characteristics"].get("diet", None)
         animal_location = animal["locations"][0]
         animal_type = animal["characteristics"].get("type", None)
-        animal_selected_info = {"Name": animal_name, "Diet": animal_diet, "Location": animal_location, "Type": animal_type}
+        animal_selected_info = {"Diet": animal_diet, "Location": animal_location, "Type": animal_type}
 
         output += '<li class="card__item">'
+        output += f'<div class="card__title">{animal_name}</div>'
+        output += '<p class="card__text">'
         for information_type, information_value in animal_selected_info.items():
             if information_value is not None:
-                output += f"{information_type}: {information_value}<br/>\n"
+                output += f"<strong>{information_type}:</strong> {information_value}<br/>\n"
+        output += '</p>'
         output += '</li>'
     return output
 
@@ -43,6 +46,7 @@ def add_animal_data_to_html(animals_data):
 def main():
     all_animals_data = load_data('animals_data.json')
     add_animal_data_to_html(all_animals_data)
+
 
 if __name__ == "__main__":
     main()
