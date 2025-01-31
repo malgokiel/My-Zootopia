@@ -7,13 +7,14 @@
 
 
 html {
-  background-color: #ffe9e9;
+  background-color: #afd1ca;
 }
 
 h1 {
     text-align: center;
     font-size: 40pt;
     font-weight: normal;
+    font-family: 'Georgia';
 }
 
 body {
@@ -45,7 +46,7 @@ body {
   margin: 50px;
 }
 
-.card__title {
+.card__title, p {
   color: @gray-dark;
   font-size: 1.25rem;
   font-weight: 300;
@@ -63,4 +64,13 @@ body {
 li {
   list-style: none;
   padding: 5px;
+}
+
+.error {
+    text-align: center;
+}
+
+#error__cat {
+    width: 600px;
+    height: 400px;
 }

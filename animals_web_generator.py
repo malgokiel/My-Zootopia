@@ -52,7 +52,7 @@ def animals_template():
     global selected_animal
     all_animals_data = load_data(selected_animal)
     animals = extract_animal_information(all_animals_data)
-    return render_template("animals_template.html", animals=animals)
+    return render_template("animals_template.html", animals=animals, selected_animal=selected_animal)
 
 
 if __name__ == "__main__":

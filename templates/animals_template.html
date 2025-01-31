@@ -5,21 +5,30 @@
     </head>
     <body>
         <h1>My Animal Repository</h1>
-        <ul class="cards">
-            {% for animal in animals %}
+        {% if animals %}
+            <ul class="cards">
+                {% for animal in animals %}
+                    <li class="cards__item">
+                        <div class="card__title">{{animal.name}} &#x21B4;</div>
+                        <p class="card__text">
+                            <ul>
+                                <li><strong>Diet: </strong>{{animal.diet}}</li>
+                                <li><strong>Location: </strong>{{animal.location}}</li>
+                                {% if animal.type %}
+                                    <li><strong>Type: </strong>{{animal.type}}</li>
+                                {% endif %}
+                            </ul>
+                        </p>
+                    </li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <ul class="cards, error">
                 <li class="cards__item">
-                    <div class="card__title">{{animal.name}} &#x21B4;</div>
-                    <p class="card__text">
-                        <ul>
-                            <li><strong>Diet: </strong>{{animal.diet}}</li>
-                            <li><strong>Location: </strong>{{animal.location}}</li>
-                            {% if animal.type %}
-                                <li><strong>Type: </strong>{{animal.type}}</li>
-                            {% endif %}
-                        </ul>
-                    </p>
+                    <img id="error__cat" src="static/houston.png" alt="Cat meme saying: Houston, we have a problem">
+                    <p class="card__text">The animal you chose: <strong>{{ selected_animal }}</strong>, does not exist.</p>
                 </li>
-            {% endfor %}
-        </ul>
+            </ul>
+        {% endif %}
     </body>
 </html>
