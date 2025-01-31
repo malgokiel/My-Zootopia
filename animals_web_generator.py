@@ -1,9 +1,13 @@
 import json
 from flask import Flask, render_template
+import os
+from dotenv import load_dotenv
 
 # App configuration
 app = Flask(__name__)
-
+# Loading API_KEY
+load_dotenv()
+API_KEY = os.getenv('API_KEY')
 
 def load_data(file_path):
     """ Loads a JSON file """
