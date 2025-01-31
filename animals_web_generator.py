@@ -1,4 +1,5 @@
 import json
+import requests
 from flask import Flask, render_template
 import os
 from dotenv import load_dotenv
@@ -9,11 +10,15 @@ app = Flask(__name__)
 load_dotenv()
 API_KEY = os.getenv('API_KEY')
 
-def load_data(file_path):
-    """ Loads a JSON file """
-    with open(file_path, "r") as handle:
-        return json.load(handle)
 
+def load_data():
+    """ Loads data for a specific animal from animal API """
+    animal_name = 'Fox'
+    api_url = 'https://api.api-ninjas.com/v1/animals?name={}'.format(animal_name)
+    response = requests.get(api_url, headers={'X-Api-Key': API_KEY})
+
+    animal_data_json = response.json()
+    return animal_data_json
 
 def extract_animal_information(animals_data):
     """
@@ -41,7 +46,7 @@ def animals_template():
     Passes a list of animal dictionaries
     and renders a template
     """
-    all_animals_data = load_data('animals_data.json')
+    all_animals_data = load_data()
     animals = extract_animal_information(all_animals_data)
     return render_template("animals_template.html", animals=animals)
 
