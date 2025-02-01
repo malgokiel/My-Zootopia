@@ -1,27 +1,10 @@
-import json
-import requests
 from flask import Flask, render_template
-import os
-from dotenv import load_dotenv
+from data_fetcher import fetch_data
 
 selected_animal = input("Enter a name of an animal: ")
 
 # App configuration
 app = Flask(__name__)
-
-# Loading API_KEY
-load_dotenv()
-API_KEY = os.getenv('API_KEY')
-
-
-def load_data(animal_to_find):
-    """ Loads data for a specific animal from animal API """
-    api_url = 'https://api.api-ninjas.com/v1/animals?name={}'.format(animal_to_find)
-    response = requests.get(api_url, headers={'X-Api-Key': API_KEY})
-
-    animal_data_json = response.json()
-    return animal_data_json
-
 
 def extract_animal_information(animals_data):
     """
@@ -50,7 +33,7 @@ def animals_template():
     and renders a template
     """
     global selected_animal
-    all_animals_data = load_data(selected_animal)
+    all_animals_data = fetch_data(selected_animal)
     animals = extract_animal_information(all_animals_data)
     return render_template("animals_template.html", animals=animals, selected_animal=selected_animal)
 
