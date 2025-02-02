@@ -18,9 +18,7 @@ To start the page, run:
 
 > python (or python3) animal_web_generator.py
 
-In the terminal, you will see a prompt to choose an animal you want to see displayed:
-
-> ![img.png](img.png)
+In the terminal, you will see a prompt to choose an animal you want to see displayed.
 
 After clicking enter, you will be able to access a fully generated page.
 
