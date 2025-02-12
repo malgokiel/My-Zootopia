@@ -15,7 +15,7 @@ def extract_animal_information(animals_data):
     for animal in animals_data:
         animal_name = animal.get("name", None)
         animal_diet = animal["characteristics"].get("diet", None)
-        animal_location = animal["locations"][0]
+        animal_location = animal.get("locations", ["Unknown"])[0]
         animal_type = animal["characteristics"].get("type", None)
         animal_selected_info = {"name": animal_name,
                                 "diet": animal_diet,
@@ -32,10 +32,13 @@ def animals_template():
     Passes a list of animal dictionaries
     and renders a template
     """
-    global selected_animal
+    selected_animal
     all_animals_data = fetch_data(selected_animal)
-    animals = extract_animal_information(all_animals_data)
-    return render_template("animals_template.html", animals=animals, selected_animal=selected_animal)
+    if type(all_animals_data) != int:
+        animals = extract_animal_information(all_animals_data)
+        return render_template("animals_template.html", animals=animals, selected_animal=selected_animal)
+    else:
+        return render_template("failed.html", error_code=all_animals_data)
 
 
 if __name__ == "__main__":
